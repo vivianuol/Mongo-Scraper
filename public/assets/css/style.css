@@ -1,0 +1,106 @@
+.navbar {
+    margin: 0;
+    position: fixed;
+    top:0;
+    width: 100%;
+    height: 60px;
+    background-color: #2196f3;
+    z-index: 1;
+}
+
+.jumbotron {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    padding: 0;
+    font-family: "Cormorant SC";
+    box-shadow: 10px 5px 20px 2px lightslategrey;
+}
+
+.jumbotron .background-image {
+    height: 100%;
+    background-image: url(../img/new-york-times.png);
+    background-size: cover;
+}
+
+.jumbotron .overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: auto;
+    background: linear-gradient(#333, black);
+    opacity: 0.7;
+}
+
+.jumbotron .caption {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.navbar-nav > li > a.scrape-new, .navbar-nav > li > a.clear {
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: 800;
+    color: white;
+}
+
+.navbar-nav > li > a.clear {
+    padding: 10px;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: 800;
+    color: white;
+}
+
+.list-group {
+    list-style-type: none;
+}
+
+
+.caption h1 {
+    font-size: 50px;
+}
+
+.caption p {
+    font-size: 20px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    color: white;
+    background-color: #2196f3;
+}
+
+.placeholder {
+    width: 100%;
+    height: 40px;
+}
+
+.save {
+    display: inline-block;
+    float: right;
+}
+
+
+.modal-dialog {
+    position: fixed;
+    top: 30px;
+    left: 32%;
+    z-index: 1;
+    display: none;
+}
+
+textarea {
+    clear: both;
+    margin: 5px 0;
+    border:rgba(128,128,128,0.6) solid 1px;
+}
