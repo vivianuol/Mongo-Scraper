@@ -25,8 +25,13 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/mongoscraper", { useNewUrlParser: true });
+var databaseuri = "mongodb://localhost/mongoscraper";
 
+if (process.env.MONGODB_URI) {
+    mongoose.connect(process.env.MONGODB_URI);
+} else {
+    mongoose.connect(databaseuri, { useNewUrlParser: true });
+}
 // Set Handlebars.
 var exphbs = require("express-handlebars");
 
