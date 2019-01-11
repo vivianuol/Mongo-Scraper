@@ -38,9 +38,16 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+var results=[];
+
 // Routes
 app.get("/", function (req, res) {
-    res.sendFile("/assets/index.html")
+    console.log(JSON.stringify(results));
+    var objs;
+    objs = {
+        articles: results
+    };
+     res.render("home", objs);
 })
 
 app.get("/api/scrape", function (req, res) {
@@ -50,8 +57,6 @@ app.get("/api/scrape", function (req, res) {
         var $ = cheerio.load(response.data);
         console.log("after cheerio" + $(".story-body").length);
         // Now, we grab every headline and summary within an article tag, and do the following:
-
-        var results = [];
 
         $(".story-body").each(function (i, element) {
 
@@ -70,8 +75,8 @@ app.get("/api/scrape", function (req, res) {
             console.log("result: " + result)
             // Create a new Article using the `result` object built from scraping
 
-
-            results.push(result);
+            if(result.headline !== '')
+                results.push(result);
             // Send a message to the client
 
         });

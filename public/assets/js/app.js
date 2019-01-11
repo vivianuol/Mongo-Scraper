@@ -32,7 +32,7 @@ $(document).ready(function () {
         articleContent
             .attr("href", article.url)
             .text(article.headline);
-            
+
         var articleBody = $("<h3>").append(articleContent);
 
         var saveArticleBtn = $("<a class='btn btn-success save'>Save Article</a>");
@@ -43,7 +43,11 @@ $(document).ready(function () {
 
     };
 
-
+    $("#home").on("click", function () {
+        $.get("/", function () {
+            window.location.replace("/api/scrape")
+        })
+    })
 
     $("#clear").on("click", function () {
         // console.log("clear clicked");
@@ -77,19 +81,16 @@ $(document).ready(function () {
         $.get("/api/scrape", function (data) {
             console.log("data: " + data);
             for (var i = 0; i < data.length; i++) {
-                if (data[i].headline) {
-                    var title = $("<h3>" + data[i].headline + "</h3>");
-                    var body = $("<p>" + data[i].summary + "</p>");
-                    var saveBtn = $("<button class='save'>save article</button>")
-                    var singleArticle = $("<div>"); singleArticle.attr("class", "single-article");
-                    singleArticle.append(title, saveBtn, body)
-                    $("#article_cont").append(singleArticle);
-                }
+
+                var title = $("<h3>" + data[i].headline + "</h3>");
+                var body = $("<p>" + data[i].summary + "</p>");
+                var saveBtn = $("<button class='save'>save article</button>")
+                var singleArticle = $("<div>"); singleArticle.attr("class", "single-article");
+                singleArticle.append(title, saveBtn, body)
+                $("#article_cont").append(singleArticle);
             }
-
         });
-    }
-
+    };
 
 
     $(document).on("click", ".scrape-new", function (e) {
@@ -128,61 +129,61 @@ $(document).ready(function () {
             .then(function () {
                 console.log("Article deleted successfully")
             });
-        
+
         $(this).parent().parent().parent().remove();
     });
 
 
-$(document).on("click", ".notes", function (e) {
-    e.preventDefault();
-    console.log("popup note modal")
+    $(document).on("click", ".notes", function (e) {
+        e.preventDefault();
+        console.log("popup note modal")
 
-    var id = $(this).parent().parent().parent().attr("data-_id");
-    console.log(id);
+        var id = $(this).parent().parent().parent().attr("data-_id");
+        console.log(id);
 
-    $(this).parent().parent().siblings(".modal-dialog").show();
+        $(this).parent().parent().siblings(".modal-dialog").show();
 
-    
-})
 
-$(document).on("click", ".save_note", function (e) {
-    e.preventDefault();
-    
-    console.log(this);
-
-    $(this).siblings(".list-group").children(".list-group-item").remove();
-
-    console.log("add new note to article");
-
-    var thisId = $(this).siblings("h4").children("span").text();
-    console.log("id: " + thisId);
-    var savedNote = $(this).siblings("textarea").val();
-    console.log("saveNote: " + savedNote);
-
-    var currentBtn = $(this);
-
-    $.post("/articles/" + thisId, { "noteContent": savedNote}, function (noteback) {
-
-        console.log("noteback: " + noteback.noteContent);
-
-        var noteItem = $("<li class='note-item'>" + noteback.noteContent +"</li>");
-        console.log(noteItem);
-        
-        currentBtn.siblings(".list-group").append(noteItem);
     })
 
-    $(this).siblings("textarea").val("");
-})
+    $(document).on("click", ".save_note", function (e) {
+        e.preventDefault();
 
-$(document).on("click", ".close", function (e) {
+        console.log(this);
 
-    e.preventDefault();
-    console.log("close the note modal")
-    $(this).parent().parent().parent().hide();
-})
+        $(this).siblings(".list-group").children(".list-group-item").remove();
 
-$("#Home").on("click", function (e) {
-    e.preventDefault();
-    window.location.replace("/");
-})
+        console.log("add new note to article");
+
+        var thisId = $(this).siblings("h4").children("span").text();
+        console.log("id: " + thisId);
+        var savedNote = $(this).siblings("textarea").val();
+        console.log("saveNote: " + savedNote);
+
+        var currentBtn = $(this);
+
+        $.post("/articles/" + thisId, { "noteContent": savedNote }, function (noteback) {
+
+            console.log("noteback: " + noteback.noteContent);
+
+            var noteItem = $("<li class='note-item'>" + noteback.noteContent + "</li>");
+            console.log(noteItem);
+
+            currentBtn.siblings(".list-group").append(noteItem);
+        })
+
+        $(this).siblings("textarea").val("");
+    })
+
+    $(document).on("click", ".close", function (e) {
+
+        e.preventDefault();
+        console.log("close the note modal")
+        $(this).parent().parent().parent().hide();
+    })
+
+    $("#Home").on("click", function (e) {
+        e.preventDefault();
+        window.location.replace("/");
+    })
 });
