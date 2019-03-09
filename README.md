@@ -2,8 +2,8 @@
 
 ### tools I used:
 * handlebars
-* Node/express
-* restfulAPI
-* mongoDB/mongoose
+* Node/Express
+* RestfulAPI
+* MongoDB/Mongoose
 
 [this app](https://secret-sands-13857.herokuapp.com/) is deployed on Heroku.
